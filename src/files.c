@@ -3183,7 +3183,7 @@ reveal_paths(int code)
 #if defined(SYSCF) || !defined(UNIX) || defined(DLB)
     const char *filep;
 #ifdef SYSCF
-    const char *gamename = (gh.hname && *gh.hname) ? gh.hname : "NetHack";
+    const char *gamename = (gh.hname && *gh.hname) ? gh.hname : "HetNack";
 #endif
 #endif
 #if defined(PREFIXES_IN_USE)

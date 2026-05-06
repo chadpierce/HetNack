@@ -494,7 +494,7 @@ void
 dump_version_info(void)
 {
     char buf[BUFSZ];
-    const char *hname = gh.hname ? gh.hname : "nethack";
+    const char *hname = gh.hname ? gh.hname : "hetnack";
 
     if (strlen(hname) > 33)
         hname = eos(nhStr(hname)) - 33; /* discard const for eos() */

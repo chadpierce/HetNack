@@ -128,7 +128,7 @@ static const char *default_configfile =
     ".nethackrc";
 #else
 #if defined(MACOS9) || defined(__BEOS__)
-    "NetHack Defaults";
+    "HetNack Defaults";
 #else
 #if defined(MSDOS) || defined(WIN32)
     CONFIG_FILE;

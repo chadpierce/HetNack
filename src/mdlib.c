@@ -140,7 +140,7 @@ static struct win_information window_opts[] = {
     { "mswin", "Windows GUI", TRUE },
 #endif
 #ifdef SHIM_GRAPHICS
-    { "shim", "NetHack Library Windowing Shim", TRUE },
+    { "shim", "HetNack Library Windowing Shim", TRUE },
 #endif
 #ifdef AMIGA_INTUITION
     { "amii", "Amiga Intuition (text)", TRUE },
@@ -338,7 +338,7 @@ version_id_string(char *outbuf, size_t bufsz, const char *build_date)
     Strcpy(&subbuf[1], PORT_SUB_ID);
 #endif
 
-    Snprintf(outbuf, bufsz, "%s NetHack%s Version %s%s - last %s %s.",
+    Snprintf(outbuf, bufsz, "%s HetNack%s Version %s%s - last %s %s.",
              PORT_ID, subbuf, mdlib_version_string(versbuf, "."), statusbuf,
              date_via_env ? "revision" : "build", build_date);
     return outbuf;
@@ -801,7 +801,7 @@ build_options(void)
 #if defined(MAKEDEFS_C) || defined(FOR_RUNTIME)
     {
         static const char *const lua_info[] = {
- "", "NetHack 5.0.* uses the 'Lua' interpreter to process some data:", "",
+ "", "HetNack 5.0.* uses the 'Lua' interpreter to process some data:", "",
  "    :LUACOPYRIGHT:", "",
  /*        1         2         3         4         5         6         7
   1234567890123456789012345678901234567890123456789012345678901234567890123456
