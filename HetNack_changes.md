@@ -189,3 +189,61 @@ genders — only the player concept of gender was removed.
   race to alignment.
 - Confirmation line shows "Tester the lawful human Fighter" with no
   male/female word.
+
+---
+
+## 4. Remove eight roles (keep only Wizard, Fighter, Rogue, Ranger, Priest)
+
+Removed Archeologist, Barbarian, Caveman, Healer, Knight, Monk,
+Samurai, and Tourist as playable roles. The role-selection menu now
+shows exactly five options.
+
+### Role table
+- `src/role.c` — deleted the eight role entries from the `roles[]`
+  initializer (each role spans ~40 lines: display name, rank titles,
+  pantheon gods, filecode, quest text keys, monster IDs for
+  leader/nemesis/intermediates, quest artifact, allow-mask, base
+  attributes, hit-point/energy progression, attribute spec).
+- `include/hack.h` — `NUM_ROLES` reduced from 13 to 5. This sizes
+  the `roles[]` array, the `role_filter.roles[]` array, and any other
+  per-role lookup table.
+
+### Quest level files
+- `dat/{Arc,Bar,Cav,Hea,Kni,Mon,Sam,Tou}-{fila,filb,goal,loca,strt}.lua`
+  removed (40 files via `git rm -f`). Quest files are picked up by the
+  build's `???-*.lua` wildcard, so leaving them would have packaged
+  unreachable content into `nhdat`. Remaining quest files: Fig (Fighter),
+  Pri (Priest), Ran (Ranger), Rog (Rogue), Wiz (Wizard) — five roles.
+
+### Plus a leftover from task #3
+- `src/role.c` `build_plselection_prompt` — the auto-pick prompt was
+  still building the string "race, role, gender and alignment". The
+  whole gender-handling block in that function was replaced with a
+  HetNack note and `(void)` casts to silence unused-variable
+  warnings. Prompt now reads "race, role and alignment".
+
+### Intentionally NOT changed
+- The monster definitions in `include/monsters.h` for quest leaders,
+  nemeses, and quest-line intermediates of the removed roles
+  (`PM_LORD_CARNARVON`, `PM_PELIAS`, `PM_SHAMAN_KARNOV`, `PM_HIPPOCRATES`,
+  `PM_KING_ARTHUR`, `PM_GRAND_MASTER`, `PM_LORD_SATO`, `PM_TWOFLOWER`,
+  and their hostile counterparts and quest minions). They remain as
+  monsters that can appear normally; the player just can't be them.
+- The corresponding artifacts (`ART_HEART_OF_AHRIMAN`,
+  `ART_PLATINUM_YENDORIAN_EXPRESS_CARD`, `ART_TSURUGI_OF_MURAMASA`,
+  etc.) — they roll as random artifacts now.
+- Starting-inventory tables in `src/u_init.c`
+  (`Archeologist[]`, `Barbarian[]`, …) — left in place as dead code.
+  No `roles[]` entry references them now, so the switch arm that calls
+  them is unreachable. Cleanup is optional and can come later.
+- Encyclopedia entries in `dat/data.base` for the removed classes —
+  kept; the entries describe the concept (e.g., samurai history),
+  which is independent of whether the player can choose them.
+- Quest-leader / nemesis / quest-class names in `dat/themerms.lua`
+  random-monster lists — kept (they refer to monsters, which exist).
+
+### Verification
+- `make` builds cleanly.
+- Interactive role menu shows exactly five entries: Priest, Rogue,
+  Ranger, Fighter, Wizard.
+- No removed role name appears anywhere in the role-selection flow.
