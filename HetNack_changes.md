@@ -247,3 +247,40 @@ shows exactly five options.
 - Interactive role menu shows exactly five entries: Priest, Rogue,
   Ranger, Fighter, Wizard.
 - No removed role name appears anywhere in the role-selection flow.
+
+---
+
+## 5. Finish stripping gender from character-creation UI + missed welcome strings
+
+Follow-up to task #3. The first pass left several gender artifacts in
+the interactive character-creation screens: a "gender:" row in the
+status panel, a "Pick gender first" navigable entry on the role/race/
+alignment menus, and the word "gender" in the auto-pick prompt.
+
+### Character-creation UI
+- `src/role.c` `role_selection_prolog()` — removed the `Sprintf(buf,
+  "%12s ", "gender:") ... putstr(...)` block. The status panel now
+  shows only name / role / race / alignment.
+- `src/role.c` `role_menu_extra()` — early-return `if (which ==
+  RS_GENDER)` so the function never appends a gender entry to the
+  role/race/alignment menus.
+- `src/role.c` `build_plselection_prompt()` — removed the
+  `if (gr.role_pa[BP_GEND]) Strcat(buf, "gender")` block.
+  `BP_GEND` was already never set after task #3, but this kills the
+  trailing "gender" word for good.
+
+### Welcome message rename (missed during task #1)
+- `src/allmain.c` — `"welcome to NetHack!"` / `"welcome back to NetHack!"`
+  -> `"welcome to HetNack!"` / `"welcome back to HetNack!"`.
+- `src/mail.c` — junk-mail template `"Welcome to NetHack."` ->
+  `"Welcome to HetNack."`.
+
+### Verification
+- Auto-pick prompt: "Shall I pick character's race, role and alignment
+  for you?" — no "gender".
+- Confirmation summary: "chad the lawful dwarven Fighter" — no
+  male/female adjective.
+- Interactive flow goes role -> race -> alignment, with no gender
+  screen and no gender row in the status panel.
+- In-game greeting: "Velkommen chad, welcome to HetNack! You are a
+  lawful dwarven Fighter."

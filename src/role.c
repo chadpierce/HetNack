@@ -1291,10 +1291,8 @@ build_plselection_prompt(
             (void) promptsep(eos(buf), num_post_attribs);
             Strcat(buf, "role");
         }
-        if (gr.role_pa[BP_GEND]) {
-            (void) promptsep(eos(buf), num_post_attribs);
-            Strcat(buf, "gender");
-        }
+        /* HetNack: gender removed; BP_GEND never set so this is dead, but
+           keep the slot logic clean by not emitting a "gender" word. */
         if (gr.role_pa[BP_ALIGN]) {
             (void) promptsep(eos(buf), num_post_attribs);
             Strcat(buf, "alignment");
@@ -1446,12 +1444,7 @@ role_selection_prolog(int which, winid where)
                   : (c == ROLE_RANDOM) ? rand_choice
                     : races[c].noun);
     putstr(where, 0, buf);
-    Sprintf(buf, "%12s ", "gender:");
-    Strcat(buf, (which == RS_GENDER) ? choosing
-                : (gend == ROLE_NONE) ? not_yet
-                  : (gend == ROLE_RANDOM) ? rand_choice
-                    : genders[gend].adj);
-    putstr(where, 0, buf);
+    /* HetNack: gender row removed from character-creation status panel. */
     Sprintf(buf, "%12s ", "alignment:");
     Strcat(buf, (which == RS_ALGNMNT) ? choosing
                 : (a == ROLE_NONE) ? not_yet
@@ -1464,6 +1457,9 @@ role_selection_prolog(int which, winid where)
 void
 role_menu_extra(int which, winid where, boolean preselect)
 {
+    /* HetNack: never offer gender as a navigable menu entry. */
+    if (which == RS_GENDER)
+        return;
     static NEARDATA const char RS_menu_let[] = {
         '=',  /* name */
         '?',  /* role */
