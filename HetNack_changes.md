@@ -284,3 +284,63 @@ alignment menus, and the word "gender" in the auto-pick prompt.
   screen and no gender row in the status panel.
 - In-game greeting: "Velkommen chad, welcome to HetNack! You are a
   lawful dwarven Fighter."
+
+---
+
+## 6. Restore eight removed roles behind an "Advanced professions..." menu
+
+Reverses the *visibility* side of task #4 without abandoning the
+"five-role default" goal: the eight roles deleted in task #4 are
+restored to the role table, but hidden behind an opt-in toggle in
+the role-selection menu. Default players still see five professions;
+anyone who wants the full thirteen picks the toggle.
+
+### Role table
+- `src/role.c` — re-added Archeologist, Barbarian, Caveman, Healer,
+  Knight, Monk, Samurai, Tourist role blocks (inserted after Wizard
+  in the `roles[]` initializer). Each block has the HetNack
+  modifications already applied: `ROLE_FEMALE` stripped from the
+  `allow` mask and any female alternate rank names reduced to
+  `{ "X", 0 }`.
+- `include/hack.h` — `NUM_ROLES` raised from 5 back to 13.
+
+### Advanced toggle
+- `src/role.c` (top of file) — added
+  `static boolean show_advanced_roles`, a hard-coded list of the
+  eight advanced filecodes (`Arc`, `Bar`, `Cav`, `Hea`, `Kni`, `Mon`,
+  `Sam`, `Tou`), helper `hetnack_is_advanced_role(int)`, and a local
+  sentinel `RS_ADVANCED_ROLE (-9)` that doesn't collide with any
+  existing menu argument value.
+- `src/role.c` `setup_rolemenu()` — when `filtering` (i.e., picking
+  a role rather than resetting filter), advanced roles are skipped
+  unless `show_advanced_roles` is set. After the role list, a single
+  toggle entry is appended: "Advanced professions..." in basic mode,
+  "Basic professions..." in advanced mode, accelerator key `+`.
+- `src/role.c` role-menu choice handler — when the toggle entry is
+  picked, flip `show_advanced_roles`, set `ROLE = ROLE_NONE` and
+  `nextpick = RS_ROLE`, so the loop re-enters the role menu in the
+  other mode.
+
+### Quest level files
+- `dat/{Arc,Bar,Cav,Hea,Kni,Mon,Sam,Tou}-{fila,filb,goal,loca,strt}.lua`
+  copied back from the pristine NetHack baseline (`cp` from
+  `~/git_/NetHack/dat/`). The `???-*.lua` build wildcard picks them
+  up automatically, so all 65 quest files (13 roles × 5 each) end up
+  bundled in `nhdat`.
+
+### Intentionally NOT changed
+- The two-tier split is purely cosmetic — there's no gameplay
+  difference between a "basic" and "advanced" role once selected.
+- `data.base` rank tables and encyclopedia entries for the eight
+  roles were never deleted in task #4 (only the Valkyrie heading was
+  changed), so no `data.base` work was needed here.
+
+### Verification
+- `make` builds cleanly with `NUM_ROLES = 13`.
+- `nhdat` contents include all 65 expected quest files (verified
+  via `dlb tf nhdat | grep '^[A-Z][a-z][a-z]-'`).
+- Binary contains both toggle strings: "Advanced professions..." and
+  "Basic professions...".
+- Random-pick smoke runs returned advanced roles (Barbarian, Tourist)
+  and basic roles (Wizard) across attempts — confirming all 13 are
+  in the role table and reachable.

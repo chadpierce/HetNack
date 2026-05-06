@@ -27,6 +27,27 @@
 
 /* NUM_ROLES is defined in hack.h */
 
+/* HetNack: roles whose data is restored but hidden behind an
+   "Advanced professions..." entry in the role-pick menu. */
+#define RS_ADVANCED_ROLE (-9) /* sentinel for the toggle entry */
+static boolean show_advanced_roles = FALSE;
+static const char *const hetnack_advanced_filecodes[] = {
+    "Arc", "Bar", "Cav", "Hea", "Kni", "Mon", "Sam", "Tou", (char *) 0
+};
+
+static boolean
+hetnack_is_advanced_role(int idx)
+{
+    int i;
+
+    if (idx < 0 || idx >= NUM_ROLES)
+        return FALSE;
+    for (i = 0; hetnack_advanced_filecodes[i]; i++)
+        if (!strcmp(roles[idx].filecode, hetnack_advanced_filecodes[i]))
+            return TRUE;
+    return FALSE;
+}
+
 const struct Role roles[NUM_ROLES+1] = {
     { { "Priest", 0 },
       { { "Aspirant", 0 },
@@ -246,6 +267,331 @@ const struct Role roles[NUM_ROLES+1] = {
       10,
       A_INT,
       SPE_MAGIC_MISSILE,
+      -4 },
+    /* HetNack: hidden behind "Advanced professions..." menu entry */
+    { { "Archeologist", 0 },
+      { { "Digger", 0 },
+        { "Field Worker", 0 },
+        { "Investigator", 0 },
+        { "Exhumer", 0 },
+        { "Excavator", 0 },
+        { "Spelunker", 0 },
+        { "Speleologist", 0 },
+        { "Collector", 0 },
+        { "Curator", 0 } },
+      "Quetzalcoatl", "Camaxtli", "Huhetotl", /* Central American */
+      "Arc",
+      "the College of Archeology",
+      "the Tomb of the Toltec Kings",
+      PM_ARCHEOLOGIST,
+      NON_PM,
+      PM_LORD_CARNARVON,
+      PM_STUDENT,
+      PM_MINION_OF_HUHETOTL,
+      NON_PM,
+      PM_HUMAN_MUMMY,
+      S_SNAKE,
+      S_MUMMY,
+      ART_ORB_OF_DETECTION,
+      MH_HUMAN | MH_DWARF | MH_GNOME | ROLE_MALE | ROLE_LAWFUL
+          | ROLE_NEUTRAL,
+      /* Str Int Wis Dex Con Cha */
+      { 7, 10, 10, 7, 7, 7 },
+      { 20, 20, 20, 10, 20, 10 },
+      /* Init   Lower  Higher */
+      { 11, 0, 0, 8, 1, 0 }, /* Hit points */
+      { 1, 0, 0, 1, 0, 1 },
+      14, /* Energy */
+      10,
+      5,
+      0,
+      2,
+      10,
+      A_INT,
+      SPE_MAGIC_MAPPING,
+      -4 },
+    { { "Barbarian", 0 },
+      { { "Plunderer", 0 },
+        { "Pillager", 0 },
+        { "Bandit", 0 },
+        { "Brigand", 0 },
+        { "Raider", 0 },
+        { "Reaver", 0 },
+        { "Slayer", 0 },
+        { "Chieftain", 0 },
+        { "Conqueror", 0 } },
+      "Mitra", "Crom", "Set", /* Hyborian */
+      "Bar",
+      "the Camp of the Duali Tribe",
+      "the Duali Oasis",
+      PM_BARBARIAN,
+      NON_PM,
+      PM_PELIAS,
+      PM_CHIEFTAIN,
+      PM_THOTH_AMON,
+      PM_OGRE,
+      PM_TROLL,
+      S_OGRE,
+      S_TROLL,
+      ART_HEART_OF_AHRIMAN,
+      MH_HUMAN | MH_ORC | ROLE_MALE | ROLE_NEUTRAL
+          | ROLE_CHAOTIC,
+      /* Str Int Wis Dex Con Cha */
+      { 16, 7, 7, 15, 16, 6 },
+      { 30, 6, 7, 20, 30, 7 },
+      /* Init   Lower  Higher */
+      { 14, 0, 0, 10, 2, 0 }, /* Hit points */
+      { 1, 0, 0, 1, 0, 1 },
+      10, /* Energy */
+      10,
+      14,
+      0,
+      0,
+      8,
+      A_INT,
+      SPE_HASTE_SELF,
+      -4 },
+    { { "Caveman", 0 },
+      { { "Troglodyte", 0 },
+        { "Aborigine", 0 },
+        { "Wanderer", 0 },
+        { "Vagrant", 0 },
+        { "Wayfarer", 0 },
+        { "Roamer", 0 },
+        { "Nomad", 0 },
+        { "Rover", 0 },
+        { "Pioneer", 0 } },
+      "Anu", "_Ishtar", "Anshar", /* Babylonian */
+      "Cav",
+      "the Caves of the Ancestors",
+      "the Dragon's Lair",
+      PM_CAVE_DWELLER,
+      PM_LITTLE_DOG,
+      PM_SHAMAN_KARNOV,
+      PM_NEANDERTHAL,
+      PM_CHROMATIC_DRAGON,
+      PM_BUGBEAR,
+      PM_HILL_GIANT,
+      S_HUMANOID,
+      S_GIANT,
+      ART_SCEPTRE_OF_MIGHT,
+      MH_HUMAN | MH_DWARF | MH_GNOME | ROLE_MALE | ROLE_LAWFUL
+          | ROLE_NEUTRAL,
+      /* Str Int Wis Dex Con Cha */
+      { 10, 7, 7, 7, 8, 6 },
+      { 30, 6, 7, 20, 30, 7 },
+      /* Init   Lower  Higher */
+      { 14, 0, 0, 8, 2, 0 }, /* Hit points */
+      { 1, 0, 0, 1, 0, 1 },
+      10, /* Energy */
+      0,
+      12,
+      0,
+      1,
+      8,
+      A_INT,
+      SPE_DIG,
+      -4 },
+    { { "Healer", 0 },
+      { { "Rhizotomist", 0 },
+        { "Empiric", 0 },
+        { "Embalmer", 0 },
+        { "Dresser", 0 },
+        { "Medicus ossium", 0 },
+        { "Herbalist", 0 },
+        { "Magister", 0 },
+        { "Physician", 0 },
+        { "Chirurgeon", 0 } },
+      "_Athena", "Hermes", "Poseidon", /* Greek */
+      "Hea",
+      "the Temple of Epidaurus",
+      "the Temple of Coeus",
+      PM_HEALER,
+      NON_PM,
+      PM_HIPPOCRATES,
+      PM_ATTENDANT,
+      PM_CYCLOPS,
+      PM_GIANT_RAT,
+      PM_SNAKE,
+      S_RODENT,
+      S_YETI,
+      ART_STAFF_OF_AESCULAPIUS,
+      MH_HUMAN | MH_GNOME | ROLE_MALE | ROLE_NEUTRAL,
+      /* Str Int Wis Dex Con Cha */
+      { 7, 7, 13, 7, 11, 16 },
+      { 15, 20, 20, 15, 25, 5 },
+      /* Init   Lower  Higher */
+      { 11, 0, 0, 8, 1, 0 }, /* Hit points */
+      { 1, 4, 0, 1, 0, 2 },
+      20, /* Energy */
+      10,
+      3,
+      -3,
+      2,
+      10,
+      A_WIS,
+      SPE_CURE_SICKNESS,
+      -4 },
+    { { "Knight", 0 },
+      { { "Gallant", 0 },
+        { "Esquire", 0 },
+        { "Bachelor", 0 },
+        { "Sergeant", 0 },
+        { "Knight", 0 },
+        { "Banneret", 0 },
+        { "Chevalier", 0 },
+        { "Seignieur", 0 },
+        { "Paladin", 0 } },
+      "Lugh", "_Brigit", "Manannan Mac Lir", /* Celtic */
+      "Kni",
+      "Camelot Castle",
+      "the Isle of Glass",
+      PM_KNIGHT,
+      PM_PONY,
+      PM_KING_ARTHUR,
+      PM_PAGE,
+      PM_IXOTH,
+      PM_QUASIT,
+      PM_OCHRE_JELLY,
+      S_IMP,
+      S_JELLY,
+      ART_MAGIC_MIRROR_OF_MERLIN,
+      MH_HUMAN | ROLE_MALE | ROLE_LAWFUL,
+      /* Str Int Wis Dex Con Cha */
+      { 13, 7, 14, 8, 10, 17 },
+      { 30, 15, 15, 10, 20, 10 },
+      /* Init   Lower  Higher */
+      { 14, 0, 0, 8, 2, 0 }, /* Hit points */
+      { 1, 4, 0, 1, 0, 2 },
+      10, /* Energy */
+      10,
+      8,
+      -2,
+      0,
+      9,
+      A_WIS,
+      SPE_TURN_UNDEAD,
+      -4 },
+    { { "Monk", 0 },
+      { { "Candidate", 0 },
+        { "Novice", 0 },
+        { "Initiate", 0 },
+        { "Student of Stones", 0 },
+        { "Student of Waters", 0 },
+        { "Student of Metals", 0 },
+        { "Student of Winds", 0 },
+        { "Student of Fire", 0 },
+        { "Master", 0 } },
+      "Shan Lai Ching", "Chih Sung-tzu", "Huan Ti", /* Chinese */
+      "Mon",
+      "the Monastery of Chan-Sune",
+      "the Monastery of the Earth-Lord",
+      PM_MONK,
+      NON_PM,
+      PM_GRAND_MASTER,
+      PM_ABBOT,
+      PM_MASTER_KAEN,
+      PM_EARTH_ELEMENTAL,
+      PM_XORN,
+      S_ELEMENTAL,
+      S_XORN,
+      ART_EYES_OF_THE_OVERWORLD,
+      MH_HUMAN | ROLE_MALE | ROLE_LAWFUL | ROLE_NEUTRAL
+          | ROLE_CHAOTIC,
+      /* Str Int Wis Dex Con Cha */
+      { 10, 7, 8, 8, 7, 7 },
+      { 25, 10, 20, 20, 15, 10 },
+      /* Init   Lower  Higher */
+      { 12, 0, 0, 8, 1, 0 }, /* Hit points */
+      { 2, 2, 0, 2, 0, 2 },
+      10, /* Energy */
+      10,
+      8,
+      -2,
+      2,
+      20,
+      A_WIS,
+      SPE_RESTORE_ABILITY,
+      -4 },
+    { { "Samurai", 0 },
+      { { "Hatamoto", 0 },       /* Banner Knight */
+        { "Ronin", 0 },          /* no allegiance */
+        { "Ninja", 0 },          /* secret society */
+        { "Joshu", 0 },          /* heads a castle */
+        { "Ryoshu", 0 },         /* has a territory */
+        { "Kokushu", 0 },        /* heads a province */
+        { "Daimyo", 0 },         /* a samurai lord */
+        { "Kuge", 0 },           /* Noble of the Court */
+        { "Shogun", 0 } },       /* supreme commander, warlord */
+      "_Amaterasu Omikami", "Raijin", "Susanowo", /* Japanese */
+      "Sam",
+      "the Castle of the Taro Clan",
+      "the Shogun's Castle",
+      PM_SAMURAI,
+      PM_LITTLE_DOG,
+      PM_LORD_SATO,
+      PM_ROSHI,
+      PM_ASHIKAGA_TAKAUJI,
+      PM_WOLF,
+      PM_STALKER,
+      S_DOG,
+      S_ELEMENTAL,
+      ART_TSURUGI_OF_MURAMASA,
+      MH_HUMAN | ROLE_MALE | ROLE_LAWFUL,
+      /* Str Int Wis Dex Con Cha */
+      { 10, 8, 7, 10, 17, 6 },
+      { 30, 10, 8, 30, 14, 8 },
+      /* Init   Lower  Higher */
+      { 13, 0, 0, 8, 1, 0 }, /* Hit points */
+      { 1, 0, 0, 1, 0, 1 },
+      11, /* Energy */
+      10,
+      10,
+      0,
+      0,
+      8,
+      A_INT,
+      SPE_CLAIRVOYANCE,
+      -4 },
+    { { "Tourist", 0 },
+      { { "Rambler", 0 },
+        { "Sightseer", 0 },
+        { "Excursionist", 0 },
+        { "Peregrinator", 0 },
+        { "Traveler", 0 },
+        { "Journeyer", 0 },
+        { "Voyager", 0 },
+        { "Explorer", 0 },
+        { "Adventurer", 0 } },
+      "Blind Io", "_The Lady", "Offler", /* Discworld */
+      "Tou",
+      "Ankh-Morpork",
+      "the Thieves' Guild Hall",
+      PM_TOURIST,
+      NON_PM,
+      PM_TWOFLOWER,
+      PM_GUIDE,
+      PM_MASTER_OF_THIEVES,
+      PM_GIANT_SPIDER,
+      PM_FOREST_CENTAUR,
+      S_SPIDER,
+      S_CENTAUR,
+      ART_YENDORIAN_EXPRESS_CARD,
+      MH_HUMAN | ROLE_MALE | ROLE_NEUTRAL,
+      /* Str Int Wis Dex Con Cha */
+      { 7, 10, 6, 7, 7, 10 },
+      { 15, 10, 10, 15, 30, 20 },
+      /* Init   Lower  Higher */
+      { 8, 0, 0, 8, 0, 0 }, /* Hit points */
+      { 1, 0, 0, 1, 0, 1 },
+      14, /* Energy */
+      0,
+      5,
+      1,
+      2,
+      10,
+      A_INT,
+      SPE_CHARM_MONSTER,
       -4 },
     /* Array terminator */
     UNDEFINED_ROLE,
@@ -1990,6 +2336,11 @@ genl_player_setup(int screenheight)
 
                     if (choice == ROLE_NONE) {
                         goto setup_done; /* selected quit */
+                    } else if (choice == RS_ADVANCED_ROLE) {
+                        /* HetNack: toggle advanced/basic and re-show menu */
+                        show_advanced_roles = !show_advanced_roles;
+                        ROLE = k = ROLE_NONE;
+                        nextpick = RS_ROLE;
                     } else if (choice == RS_menu_arg(RS_ALGNMNT)) {
                         ALGN = k = ROLE_NONE;
                         nextpick = RS_ALGNMNT;
@@ -2515,6 +2866,9 @@ setup_rolemenu(
                    && ok_align(i, race, gend, algn));
         if (filtering && !role_ok)
             continue;
+        /* HetNack: hide advanced roles from default role-pick menu */
+        if (filtering && !show_advanced_roles && hetnack_is_advanced_role(i))
+            continue;
         if (filtering)
             any.a_int = i + 1;
         else
@@ -2541,6 +2895,15 @@ setup_rolemenu(
                  (!filtering && !role_ok)
                     ? MENU_ITEMFLAGS_SELECTED : MENU_ITEMFLAGS_NONE);
         lastch = thisch;
+    }
+    /* HetNack: append the basic/advanced toggle entry */
+    if (filtering) {
+        any = cg.zeroany;
+        any.a_int = RS_ADVANCED_ROLE;
+        add_menu(win, &nul_glyphinfo, &any, '+', 0, ATR_NONE, clr,
+                 show_advanced_roles ? "Basic professions..."
+                                     : "Advanced professions...",
+                 MENU_ITEMFLAGS_NONE);
     }
 }
 
