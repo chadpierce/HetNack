@@ -125,7 +125,7 @@ static int optfn_##a(int, int, boolean, char *, char *);
                 "your character's name (e.g., name:Merlin-W)")
     NHOPTC(role, Advanced, PL_CSIZ, opt_in, set_gameview,
                 Yes, Yes, Yes, No, "character",
-                "your starting role (e.g., Barbarian, Valkyrie)")
+                "your starting role (e.g., Wizard, Fighter)")
     NHOPTC(race, Advanced, PL_CSIZ, opt_in, set_gameview,
                 Yes, Yes, Yes, No, NoAlias,
                 "your starting race (e.g., Human, Elf)")

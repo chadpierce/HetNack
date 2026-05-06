@@ -6422,10 +6422,11 @@ adventurer
 	Explorer         26 to 29
 	Adventurer          30
 val* ranks
+fig* ranks
+fighter
 valkyrie
 stripling
 skirmisher
-fighter
 *man-at-arms
 warrior
 swashbuckler
@@ -6434,7 +6435,7 @@ heroine
 champion
 lord
 lady
-	Valkyrie ranks
+	Fighter ranks
 	  title            level
 	Stripling         1 to 2
 	Skirmisher        3 to 5

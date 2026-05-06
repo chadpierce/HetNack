@@ -490,7 +490,7 @@ const struct Role roles[NUM_ROLES+1] = {
       A_INT,
       SPE_CHARM_MONSTER,
       -4 },
-    { { "Valkyrie", 0 },
+    { { "Fighter", 0 },
       { { "Stripling", 0 },
         { "Skirmisher", 0 },
         { "Fighter", 0 },
@@ -501,7 +501,7 @@ const struct Role roles[NUM_ROLES+1] = {
         { "Champion", 0 },
         { "Lord", "Lady" } },
       "Tyr", "Odin", "Loki", /* Norse */
-      "Val",
+      "Fig",
       "the Shrine of Destiny",
       "the cave of Surtur",
       PM_VALKYRIE,

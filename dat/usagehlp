@@ -27,8 +27,8 @@ nethack -u character-name [-X or -D]
 
 nethack -p Ppp -r Rrr [-@]
   '-p Ppp' specify role; p for "profession" is used because -r is in use;
-       'Ppp' is three or more letters of the role name such as Val for
-       Valkyrie; unlike -p itself, upper/lower case of Ppp doesn't matter
+       'Ppp' is three or more letters of the role name such as Fig for
+       Fighter; unlike -p itself, upper/lower case of Ppp doesn't matter
   '-r Rrr' specify race or species: Hum[an], Elf, Orc, Dwa[rf], Gno[me];
   '-@' force non-interactive start; any of role, race, gender, and
        alignment that is not specified on the command line or in the
