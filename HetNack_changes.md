@@ -112,3 +112,80 @@ implementation continues to use it.
 - `make` builds cleanly.
 - Game banner displays `HetNack (based on NetHack, Copyright 1985-2026)`.
 - Binary accepts `-pFig` on the command line (Fighter role recognized).
+
+---
+
+## 3. Remove player gender (Option B: skip prompt + gender-neutral text)
+
+The player no longer has a gender. The character-creation prompt for
+male/female is gone, all roles are selectable by anyone, and player
+pronouns are singular "they / them / their". Monsters keep their own
+genders — only the player concept of gender was removed.
+
+### Player pronouns
+- `include/you.h` — `uhe()`, `uhim()`, `uhis()` macros now expand to
+  the literal strings `"they"`, `"them"`, `"their"`. The old definitions
+  indexed `genders[flags.female]`. Verb agreement may be off in a few
+  third-person sentences ("they hits") since most NetHack text is
+  second-person ("you hit") and isn't affected.
+
+### Role gender restrictions
+- `src/role.c` — every role's `allow` field had `ROLE_FEMALE` removed:
+  - All roles that previously allowed both (`ROLE_MALE | ROLE_FEMALE`)
+    now allow only `ROLE_MALE`. Because no role permits gender 1, the
+    gender-selection menu sees a single valid option and is skipped.
+  - The Fighter role (formerly Valkyrie) had `ROLE_FEMALE` standalone;
+    swapped to `ROLE_MALE` so the role is still selectable.
+  - The same edit pass affected race `allow` flags. Races now also
+    list only `ROLE_MALE`. Harmless: races aren't picked by gender,
+    and the player gender is fixed at 0 anyway.
+
+### Rank and role-name alternates
+- `src/role.c` — every gendered alternate `{ "X", "Y" }` rank or role
+  name was reduced to `{ "X", 0 }`. Examples: `{ "Lord", "Lady" }` ->
+  `{ "Lord", 0 }`; `{ "Hero", "Heroine" }` -> `{ "Hero", 0 }`;
+  `{ "Priest", "Priestess" }` (also a role name) -> `{ "Priest", 0 }`.
+  Since `flags.female` is always 0, the alternate field was never
+  reachable; this is a cleanup so the source matches what runs.
+
+### Character description text
+- `src/role.c` — character preview/confirmation strings ("`<name>` the
+  `<alignment>` `<gender>` `<race>` `<role>`") had the gender field
+  removed. Output is now "`<name>` the `<alignment>` `<race>` `<role>`",
+  e.g., "Tester the lawful human Fighter".
+- `src/end.c` — death-screen header: dropped the gender adjective from
+  the "name, alignment gender race role" summary line.
+- `src/polyself.c` — polymorph livelog fallback: replaced
+  `genders[flags.female].adj` with `gu.urace.adj` so the message reads
+  "polymorphed into a human <rank>" instead of "a male <rank>".
+
+### Existing safety net
+- The validator at `src/role.c` lines 2010-2015 already flips
+  `flags.female` if it isn't valid for the chosen role/race. With
+  `ROLE_FEMALE` gone everywhere, gender 1 is invalid, so the validator
+  forces `flags.female = 0` no matter what the user passed (e.g.,
+  `-gFem`, `OPTIONS=gender:female`, or a save file from before).
+
+### Intentionally NOT changed
+- The `genders[]` table in `src/role.c` is left intact. Monster gender
+  still uses it via `mhe()`/`mhim()`/`mhis()`.
+- The `flags.female` field itself remains in the flag struct — it's
+  read by polymorph code, save/bones file naming, hi-score gendcode,
+  egg-laying mechanics, and an artifact hallucination message
+  (`src/artifact.c`). All of these continue to work with `flags.female`
+  pinned to 0.
+- The "Demigod" / "Demigoddess" ascension title in `src/end.c:1424`
+  still branches on `flags.female`; with the field pinned to 0, every
+  ascension is a "Demigod". Acceptable as a non-gendered noun.
+- Niche polymorph descriptions ("male foo" / "female foo") still
+  appear when polymorphed into a monster whose entry has neither
+  `is_male` nor `is_female` set; those describe the monster form, not
+  the player.
+
+### Verification
+- `make` builds cleanly (had to `rm src/role.o` once to defeat the
+  vboxfs clock-skew make-up-to-date check; not a code issue).
+- Game start no longer prompts for gender — goes straight from role to
+  race to alignment.
+- Confirmation line shows "Tester the lawful human Fighter" with no
+  male/female word.

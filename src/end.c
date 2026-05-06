@@ -575,11 +575,9 @@ dump_everything(
     putstr(0, 0, "");
 
     /* character name and basic role info */
-    Sprintf(pbuf, "%s, %s %s %s %s",
+    Sprintf(pbuf, "%s, %s %s %s",
             svp.plname, aligns[1 - u.ualign.type].adj,
-            genders[flags.female].adj, gu.urace.adj,
-            (flags.female && gu.urole.name.f) ? gu.urole.name.f
-                                             : gu.urole.name.m);
+            gu.urace.adj, gu.urole.name.m);
     putstr(0, 0, pbuf);
     putstr(0, 0, "");
 

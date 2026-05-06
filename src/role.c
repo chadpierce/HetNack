@@ -52,7 +52,7 @@ const struct Role roles[NUM_ROLES+1] = {
       S_SNAKE,
       S_MUMMY,
       ART_ORB_OF_DETECTION,
-      MH_HUMAN | MH_DWARF | MH_GNOME | ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL
+      MH_HUMAN | MH_DWARF | MH_GNOME | ROLE_MALE | ROLE_LAWFUL
           | ROLE_NEUTRAL,
       /* Str Int Wis Dex Con Cha */
       { 7, 10, 10, 7, 7, 7 },
@@ -70,15 +70,15 @@ const struct Role roles[NUM_ROLES+1] = {
       SPE_MAGIC_MAPPING,
       -4 },
     { { "Barbarian", 0 },
-      { { "Plunderer", "Plunderess" },
+      { { "Plunderer", 0 },
         { "Pillager", 0 },
         { "Bandit", 0 },
         { "Brigand", 0 },
         { "Raider", 0 },
         { "Reaver", 0 },
         { "Slayer", 0 },
-        { "Chieftain", "Chieftainess" },
-        { "Conqueror", "Conqueress" } },
+        { "Chieftain", 0 },
+        { "Conqueror", 0 } },
       "Mitra", "Crom", "Set", /* Hyborian */
       "Bar",
       "the Camp of the Duali Tribe",
@@ -93,7 +93,7 @@ const struct Role roles[NUM_ROLES+1] = {
       S_OGRE,
       S_TROLL,
       ART_HEART_OF_AHRIMAN,
-      MH_HUMAN | MH_ORC | ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL
+      MH_HUMAN | MH_ORC | ROLE_MALE | ROLE_NEUTRAL
           | ROLE_CHAOTIC,
       /* Str Int Wis Dex Con Cha */
       { 16, 7, 7, 15, 16, 6 },
@@ -110,7 +110,7 @@ const struct Role roles[NUM_ROLES+1] = {
       A_INT,
       SPE_HASTE_SELF,
       -4 },
-    { { "Caveman", "Cavewoman" },
+    { { "Caveman", 0 },
       { { "Troglodyte", 0 },
         { "Aborigine", 0 },
         { "Wanderer", 0 },
@@ -134,7 +134,7 @@ const struct Role roles[NUM_ROLES+1] = {
       S_HUMANOID,
       S_GIANT,
       ART_SCEPTRE_OF_MIGHT,
-      MH_HUMAN | MH_DWARF | MH_GNOME | ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL
+      MH_HUMAN | MH_DWARF | MH_GNOME | ROLE_MALE | ROLE_LAWFUL
           | ROLE_NEUTRAL,
       /* Str Int Wis Dex Con Cha */
       { 10, 7, 7, 7, 8, 6 },
@@ -156,9 +156,9 @@ const struct Role roles[NUM_ROLES+1] = {
         { "Empiric", 0 },
         { "Embalmer", 0 },
         { "Dresser", 0 },
-        { "Medicus ossium", "Medica ossium" },
+        { "Medicus ossium", 0 },
         { "Herbalist", 0 },
-        { "Magister", "Magistra" },
+        { "Magister", 0 },
         { "Physician", 0 },
         { "Chirurgeon", 0 } },
       "_Athena", "Hermes", "Poseidon", /* Greek */
@@ -175,7 +175,7 @@ const struct Role roles[NUM_ROLES+1] = {
       S_RODENT,
       S_YETI,
       ART_STAFF_OF_AESCULAPIUS,
-      MH_HUMAN | MH_GNOME | ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL,
+      MH_HUMAN | MH_GNOME | ROLE_MALE | ROLE_NEUTRAL,
       /* Str Int Wis Dex Con Cha */
       { 7, 7, 13, 7, 11, 16 },
       { 15, 20, 20, 15, 25, 5 },
@@ -198,8 +198,8 @@ const struct Role roles[NUM_ROLES+1] = {
         { "Sergeant", 0 },
         { "Knight", 0 },
         { "Banneret", 0 },
-        { "Chevalier", "Chevaliere" },
-        { "Seignieur", "Dame" },
+        { "Chevalier", 0 },
+        { "Seignieur", 0 },
         { "Paladin", 0 } },
       "Lugh", "_Brigit", "Manannan Mac Lir", /* Celtic */
       "Kni",
@@ -215,7 +215,7 @@ const struct Role roles[NUM_ROLES+1] = {
       S_IMP,
       S_JELLY,
       ART_MAGIC_MIRROR_OF_MERLIN,
-      MH_HUMAN | ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL,
+      MH_HUMAN | ROLE_MALE | ROLE_LAWFUL,
       /* Str Int Wis Dex Con Cha */
       { 13, 7, 14, 8, 10, 17 },
       { 30, 15, 15, 10, 20, 10 },
@@ -255,7 +255,7 @@ const struct Role roles[NUM_ROLES+1] = {
       S_ELEMENTAL,
       S_XORN,
       ART_EYES_OF_THE_OVERWORLD,
-      MH_HUMAN | ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL
+      MH_HUMAN | ROLE_MALE | ROLE_LAWFUL | ROLE_NEUTRAL
           | ROLE_CHAOTIC,
       /* Str Int Wis Dex Con Cha */
       { 10, 7, 8, 8, 7, 7 },
@@ -272,16 +272,16 @@ const struct Role roles[NUM_ROLES+1] = {
       A_WIS,
       SPE_RESTORE_ABILITY,
       -4 },
-    { { "Priest", "Priestess" },
+    { { "Priest", 0 },
       { { "Aspirant", 0 },
         { "Acolyte", 0 },
         { "Adept", 0 },
-        { "Priest", "Priestess" },
+        { "Priest", 0 },
         { "Curate", 0 },
-        { "Canon", "Canoness" },
+        { "Canon", 0 },
         { "Lama", 0 },
-        { "Patriarch", "Matriarch" },
-        { "High Priest", "High Priestess" } },
+        { "Patriarch", 0 },
+        { "High Priest", 0 } },
       0, 0, 0, /* deities from a randomly chosen other role will be used */
       "Pri",
       "the Great Temple",
@@ -296,7 +296,7 @@ const struct Role roles[NUM_ROLES+1] = {
       S_ZOMBIE,
       S_WRAITH,
       ART_MITRE_OF_HOLINESS,
-      MH_HUMAN | MH_ELF | ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL
+      MH_HUMAN | MH_ELF | ROLE_MALE | ROLE_LAWFUL | ROLE_NEUTRAL
           | ROLE_CHAOTIC,
       /* Str Int Wis Dex Con Cha */
       { 7, 7, 10, 7, 7, 7 },
@@ -323,7 +323,7 @@ const struct Role roles[NUM_ROLES+1] = {
         { "Robber", 0 },
         { "Burglar", 0 },
         { "Filcher", 0 },
-        { "Magsman", "Magswoman" },
+        { "Magsman", 0 },
         { "Thief", 0 } },
       "Issek", "Mog", "Kos", /* Nehwon */
       "Rog",
@@ -339,7 +339,7 @@ const struct Role roles[NUM_ROLES+1] = {
       S_NYMPH,
       S_NAGA,
       ART_MASTER_KEY_OF_THIEVERY,
-      MH_HUMAN | MH_ORC | ROLE_MALE | ROLE_FEMALE | ROLE_CHAOTIC,
+      MH_HUMAN | MH_ORC | ROLE_MALE | ROLE_CHAOTIC,
       /* Str Int Wis Dex Con Cha */
       { 7, 7, 7, 10, 7, 6 },
       { 20, 10, 10, 30, 20, 10 },
@@ -373,12 +373,12 @@ const struct Role roles[NUM_ROLES+1] = {
         { "Tenderfoot", 0 },
         { "Lookout", 0 },
         { "Trailblazer", 0 },
-        { "Reconnoiterer", "Reconnoiteress" },
+        { "Reconnoiterer", 0 },
         { "Scout", 0 },
         { "Arbalester", 0 }, /* One skilled at crossbows */
         { "Archer", 0 },
         { "Sharpshooter", 0 },
-        { "Marksman", "Markswoman" } },
+        { "Marksman", 0 } },
       "Mercury", "_Venus", "Mars", /* Roman/planets */
       "Ran",
       "Orion's camp",
@@ -393,7 +393,7 @@ const struct Role roles[NUM_ROLES+1] = {
       S_CENTAUR,
       S_SPIDER,
       ART_LONGBOW_OF_DIANA,
-      MH_HUMAN | MH_ELF | MH_GNOME | MH_ORC | ROLE_MALE | ROLE_FEMALE
+      MH_HUMAN | MH_ELF | MH_GNOME | MH_ORC | ROLE_MALE
           | ROLE_NEUTRAL | ROLE_CHAOTIC,
       /* Str Int Wis Dex Con Cha */
       { 13, 13, 13, 9, 13, 7 },
@@ -413,7 +413,7 @@ const struct Role roles[NUM_ROLES+1] = {
     { { "Samurai", 0 },
       { { "Hatamoto", 0 },       /* Banner Knight */
         { "Ronin", 0 },          /* no allegiance */
-        { "Ninja", "Kunoichi" }, /* secret society */
+        { "Ninja", 0 }, /* secret society */
         { "Joshu", 0 },          /* heads a castle */
         { "Ryoshu", 0 },         /* has a territory */
         { "Kokushu", 0 },        /* heads a province */
@@ -434,7 +434,7 @@ const struct Role roles[NUM_ROLES+1] = {
       S_DOG,
       S_ELEMENTAL,
       ART_TSURUGI_OF_MURAMASA,
-      MH_HUMAN | ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL,
+      MH_HUMAN | ROLE_MALE | ROLE_LAWFUL,
       /* Str Int Wis Dex Con Cha */
       { 10, 8, 7, 10, 17, 6 },
       { 30, 10, 8, 30, 14, 8 },
@@ -454,7 +454,7 @@ const struct Role roles[NUM_ROLES+1] = {
       { { "Rambler", 0 },
         { "Sightseer", 0 },
         { "Excursionist", 0 },
-        { "Peregrinator", "Peregrinatrix" },
+        { "Peregrinator", 0 },
         { "Traveler", 0 },
         { "Journeyer", 0 },
         { "Voyager", 0 },
@@ -474,7 +474,7 @@ const struct Role roles[NUM_ROLES+1] = {
       S_SPIDER,
       S_CENTAUR,
       ART_YENDORIAN_EXPRESS_CARD,
-      MH_HUMAN | ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL,
+      MH_HUMAN | ROLE_MALE | ROLE_NEUTRAL,
       /* Str Int Wis Dex Con Cha */
       { 7, 10, 6, 7, 7, 10 },
       { 15, 10, 10, 15, 30, 20 },
@@ -494,12 +494,12 @@ const struct Role roles[NUM_ROLES+1] = {
       { { "Stripling", 0 },
         { "Skirmisher", 0 },
         { "Fighter", 0 },
-        { "Man-at-arms", "Woman-at-arms" },
+        { "Man-at-arms", 0 },
         { "Warrior", 0 },
         { "Swashbuckler", 0 },
-        { "Hero", "Heroine" },
+        { "Hero", 0 },
         { "Champion", 0 },
-        { "Lord", "Lady" } },
+        { "Lord", 0 } },
       "Tyr", "Odin", "Loki", /* Norse */
       "Fig",
       "the Shrine of Destiny",
@@ -514,7 +514,7 @@ const struct Role roles[NUM_ROLES+1] = {
       S_ANT,
       S_GIANT,
       ART_ORB_OF_FATE,
-      MH_HUMAN | MH_DWARF | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL,
+      MH_HUMAN | MH_DWARF | ROLE_MALE | ROLE_LAWFUL | ROLE_NEUTRAL,
       /* Str Int Wis Dex Con Cha */
       { 10, 7, 7, 7, 10, 7 },
       { 30, 6, 7, 20, 30, 7 },
@@ -535,8 +535,8 @@ const struct Role roles[NUM_ROLES+1] = {
         { "Conjurer", 0 },
         { "Thaumaturge", 0 },
         { "Magician", 0 },
-        { "Enchanter", "Enchantress" },
-        { "Sorcerer", "Sorceress" },
+        { "Enchanter", 0 },
+        { "Sorcerer", 0 },
         { "Necromancer", 0 },
         { "Wizard", 0 },
         { "Mage", 0 } },
@@ -554,7 +554,7 @@ const struct Role roles[NUM_ROLES+1] = {
       S_BAT,
       S_WRAITH,
       ART_EYE_OF_THE_AETHIOPICA,
-      MH_HUMAN | MH_ELF | MH_GNOME | MH_ORC | ROLE_MALE | ROLE_FEMALE
+      MH_HUMAN | MH_ELF | MH_GNOME | MH_ORC | ROLE_MALE
           | ROLE_NEUTRAL | ROLE_CHAOTIC,
       /* Str Int Wis Dex Con Cha */
       { 7, 10, 7, 7, 7, 7 },
@@ -584,11 +584,11 @@ const struct Race races[NUM_RACES + 1] = {
         "human",
         "humanity",
         "Hum",
-        { "man", "woman" },
+        { "man", 0 },
         PM_HUMAN,
         PM_HUMAN_MUMMY,
         PM_HUMAN_ZOMBIE,
-        MH_HUMAN | ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL
+        MH_HUMAN | ROLE_MALE | ROLE_LAWFUL | ROLE_NEUTRAL
             | ROLE_CHAOTIC,
         MH_HUMAN,
         0,
@@ -609,7 +609,7 @@ const struct Race races[NUM_RACES + 1] = {
         PM_ELF,
         PM_ELF_MUMMY,
         PM_ELF_ZOMBIE,
-        MH_ELF | ROLE_MALE | ROLE_FEMALE | ROLE_CHAOTIC,
+        MH_ELF | ROLE_MALE | ROLE_CHAOTIC,
         MH_ELF,
         MH_ELF,
         MH_ORC,
@@ -629,7 +629,7 @@ const struct Race races[NUM_RACES + 1] = {
         PM_DWARF,
         PM_DWARF_MUMMY,
         PM_DWARF_ZOMBIE,
-        MH_DWARF | ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL,
+        MH_DWARF | ROLE_MALE | ROLE_LAWFUL,
         MH_DWARF,
         MH_DWARF | MH_GNOME,
         MH_ORC,
@@ -649,7 +649,7 @@ const struct Race races[NUM_RACES + 1] = {
         PM_GNOME,
         PM_GNOME_MUMMY,
         PM_GNOME_ZOMBIE,
-        MH_GNOME | ROLE_MALE | ROLE_FEMALE | ROLE_NEUTRAL,
+        MH_GNOME | ROLE_MALE | ROLE_NEUTRAL,
         MH_GNOME,
         MH_DWARF | MH_GNOME,
         MH_HUMAN,
@@ -669,7 +669,7 @@ const struct Race races[NUM_RACES + 1] = {
         PM_ORC,
         PM_ORC_MUMMY,
         PM_ORC_ZOMBIE,
-        MH_ORC | ROLE_MALE | ROLE_FEMALE | ROLE_CHAOTIC,
+        MH_ORC | ROLE_MALE | ROLE_CHAOTIC,
         MH_ORC,
         0,
         MH_HUMAN | MH_ELF | MH_DWARF,
@@ -2817,18 +2817,16 @@ plsel_startmenu(int ttyrows, int aspect)
                : (GEND == 1 && roles[ROLE].name.f) ? roles[ROLE].name.f
                  : roles[ROLE].name.m;
     if (!svp.plname[0] || ROLE < 0 || RACE < 0 || GEND < 0 || ALGN < 0) {
-        /* "<role> <race.noun> <gender> <alignment>" */
-        Sprintf(qbuf, "%.20s %.20s %.20s %.20s",
+        /* "<role> <race.noun> <alignment>" */
+        Sprintf(qbuf, "%.20s %.20s %.20s",
                 rolename,
                 (RACE < 0) ? "<race>" : races[RACE].noun,
-                (GEND < 0) ? "<gender>" : genders[GEND].adj,
                 (ALGN < 0) ? "<alignment>" : aligns[ALGN].adj);
     } else {
-        /* "<name> the <alignment> <gender> <race.adjective> <role>" */
-        Sprintf(qbuf, "%.20s the %.20s %.20s %.20s %.20s",
+        /* "<name> the <alignment> <race.adjective> <role>" */
+        Sprintf(qbuf, "%.20s the %.20s %.20s %.20s",
                 svp.plname,
                 aligns[ALGN].adj,
-                genders[GEND].adj,
                 races[RACE].adj,
                 rolename);
     }

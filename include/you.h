@@ -310,10 +310,10 @@ struct Gender {
                              increment to 3 if you allow neuter roles */
 
 extern const struct Gender genders[]; /* table of available genders */
-/* pronouns for the hero */
-#define uhe()      (genders[flags.female ? 1 : 0].he)
-#define uhim()     (genders[flags.female ? 1 : 0].him)
-#define uhis()     (genders[flags.female ? 1 : 0].his)
+/* pronouns for the hero (singular they; HetNack: gender removed) */
+#define uhe()      "they"
+#define uhim()     "them"
+#define uhis()     "their"
 /* pronoun_gender() flag masks */
 #define PRONOUN_NORMAL 0 /* none of the below */
 #define PRONOUN_NO_IT  1
