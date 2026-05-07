@@ -76,18 +76,9 @@ des.object("boulder",10,10)
 des.exclusion({ type = "monster-generation", region = { 01,06, 07,11 } });
 
 -- Traps
-des.trap("pit",04,06)
 
-des.trap("pit",02,06)
-des.trap("pit",02,07)
-des.trap("pit",02,08)
 des.trap("rolling boulder",02,09)
 
-des.trap("pit",02,10)
-des.trap("pit",03,10)
-des.trap("pit",04,10)
-des.trap("pit",05,10)
-des.trap("pit",06,10)
 des.trap("rolling boulder",07,10)
 
 -- A little help

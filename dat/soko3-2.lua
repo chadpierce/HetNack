@@ -51,18 +51,6 @@ des.object("boulder",03,11)
 des.exclusion({ type = "monster-generation", region = { 11,10, 24,10 } });
 -- Traps
 des.trap("rolling boulder",11,10)
-des.trap("hole",12,10)
-des.trap("hole",13,10)
-des.trap("hole",14,10)
-des.trap("hole",15,10)
-des.trap("hole",16,10)
-des.trap("hole",17,10)
-des.trap("hole",18,10)
-des.trap("hole",19,10)
-des.trap("hole",20,10)
-des.trap("hole",21,10)
-des.trap("hole",22,10)
-des.trap("hole",23,10)
 
 -- Random objects
 des.object({ class = "%" });

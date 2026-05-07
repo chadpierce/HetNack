@@ -344,3 +344,59 @@ anyone who wants the full thirteen picks the toggle.
 - Random-pick smoke runs returned advanced roles (Barbarian, Tourist)
   and basic roles (Wizard) across attempts — confirming all 13 are
   in the role table and reachable.
+
+---
+
+## 7. Strip pits/holes from Sokoban (de-puzzle the branch)
+
+Sokoban's defining mechanic is pushing boulders into pits and holes
+to clear a path. The branch is, by the level designer's own admission
+in `soko4-1.lua`'s header comment, "not particularly difficult, just
+time consuming." This change removes the pit/hole traps so the levels
+become normal corridors to walk through; the boulders remain as
+ignorable scenery and the prize room is unchanged.
+
+### Files modified
+- `dat/soko1-1.lua`, `dat/soko1-2.lua`
+- `dat/soko2-1.lua`, `dat/soko2-2.lua`
+- `dat/soko3-1.lua`, `dat/soko3-2.lua`
+- `dat/soko4-1.lua`, `dat/soko4-2.lua`
+
+### What was removed
+- All `des.trap("hole", ...)` lines (levels 1–3 of the branch)
+- All `des.trap("pit", ...)` lines (level 4 of the branch — the
+  top floor uses pits instead of holes)
+
+### What was kept
+- All `des.object("boulder", ...)` placements — the boulders are
+  still scattered around but with no goal-traps to push them into,
+  they're just movable scenery. Players can step around them or
+  push them aside.
+- `des.trap("rolling boulder", ...)` traps — these are a different
+  mechanic (a one-shot booby trap that rolls a boulder at the
+  trigger). One or two per level, harmless to leave in.
+- The `des.exclusion` lines that originally prevented monster
+  generation on filled-pit tiles. They're now no-ops since the
+  pits are gone, but they don't cause any errors.
+- The reward room at the top of soko1-1 with the bag-of-holding
+  / amulet-of-reflection prize, the cursed scroll, and the
+  burned "Elbereth" engraving — all unchanged.
+
+### Intentionally NOT changed
+- The Sokoban branch's other rules (no teleporting in, no
+  diagonal pushing, etc.) are enforced by the `"sokoban"` level
+  flag and remain in effect. They're harmless when there's no
+  puzzle to solve.
+- Mimics disguised as boulders (`des.monster({ id = "giant
+  mimic", appear_as = "obj:boulder" })`) — kept; combat
+  encounters aren't the tedious part.
+- The "scroll of earth" hand-out objects on level 4 — kept;
+  they're flavor and harmless.
+
+### Verification
+- `nhdat` rebuilt (forced via `rm -f dat/nhdat && make`).
+- Extracted `soko1-1.lua` from the new `nhdat`: contains 1
+  trap (rolling boulder) and 0 hole traps — confirms the
+  packaging picked up the modified files.
+- All 8 modified Sokoban files have only their rolling-boulder
+  traps remaining.

@@ -64,24 +64,6 @@ des.object("boulder",11,10);
 des.exclusion({ type = "monster-generation", region = { 05,01, 23,01 } });
 -- Traps
 des.trap("rolling boulder",05,01)
-des.trap("hole",06,01)
-des.trap("hole",07,01)
-des.trap("hole",08,01)
-des.trap("hole",09,01)
-des.trap("hole",10,01)
-des.trap("hole",11,01)
-des.trap("hole",12,01)
-des.trap("hole",13,01)
-des.trap("hole",14,01)
-des.trap("hole",15,01)
-des.trap("hole",16,01)
-des.trap("hole",17,01)
-des.trap("hole",18,01)
-des.trap("hole",19,01)
-des.trap("hole",20,01)
-des.trap("hole",21,01)
-des.trap("hole",22,01)
-des.trap("hole",23,01)
 
 des.monster({ id = "giant mimic", appear_as = "obj:boulder" });
 des.monster({ id = "giant mimic", appear_as = "obj:boulder" });
